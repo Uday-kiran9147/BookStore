@@ -34,7 +34,7 @@ class _BookListScreenState extends State<BookListScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.only(left: 20,top: 20),
                   height: 90,
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
