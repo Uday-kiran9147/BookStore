@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
-        title: 'Book Store App',
+        title: 'Book Store ',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           // primarySwatch: Colors.,

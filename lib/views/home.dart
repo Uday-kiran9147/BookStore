@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/BookProvider.dart';
+import '../widgets/book_item.dart';
 import 'cart_screen.dart';
 
 class BookListScreen extends StatefulWidget {
@@ -62,94 +63,17 @@ class _BookListScreenState extends State<BookListScreen> {
           (books.search_book(searchQuery).length > 0)
               ? Expanded(
                   child: GridView.builder(
+                    padding: EdgeInsets.all(8),
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 200,
-                        childAspectRatio: 3 / 4,
+                        maxCrossAxisExtent: 300,
+                        childAspectRatio: 3 / 5,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20),
                     itemCount: books.booklistgetter.length,
                     itemBuilder: (BuildContext context, int index) {
                       // final book = books[index];
-                      return InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            BookDetailsScreen.routeName,
-                            arguments: books.booklistgetter[index].title,
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: Colors.grey),
-                              boxShadow: [
-                                BoxShadow(color: Colors.black, blurRadius: 3)
-                              ],
-                              color: Colors.grey.shade50,
-                              borderRadius:
-                                  // BorderRadius.all(Radius.circular(10))
-                                  BorderRadius.circular(3),
-                            ),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.only(top: 10),
-                                    child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                      child: Image.network(
-                                        height: 150,
-                                        width: 140,
-                                        books
-                                            .booklistgetter[index].coverImageUrl
-                                            .toString(),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    books.booklistgetter[index].title
-                                        .toString(),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.sansita(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color:
-                                            Color.fromARGB(255, 255, 54, 64)),
-                                  ),
-                                  Text(
-                                    'Author name',
-                                    // "\$${books.booklistgetter[index].priceInDollar}",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        // fontSize: 20,
-                                        color: Colors.grey),
-                                  ),
-                                  Text(
-                                    books.booklistgetter[index].availableFormat
-                                        .toString(),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color:
-                                            Color.fromARGB(255, 211, 105, 111)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
+                      return bookitem(context, books, index);
                     },
                   ),
                 )
@@ -158,4 +82,5 @@ class _BookListScreenState extends State<BookListScreen> {
       ),
     );
   }
+
 }
