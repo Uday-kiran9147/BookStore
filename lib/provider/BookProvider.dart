@@ -13,7 +13,7 @@ class BookProvider with ChangeNotifier {
   }
 
   List<BookModel> search_book(String searchQuery) {
-    return booklistgetter
+    return booklist
         .where((element) => element.title
             .toString()
             .toLowerCase()

@@ -26,7 +26,7 @@ class _BookListScreenState extends State<BookListScreen> {
   Widget build(BuildContext context) {
     final books = Provider.of<BookProvider>(context);
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           Container(
             height: 100,
@@ -35,9 +35,9 @@ class _BookListScreenState extends State<BookListScreen> {
               children: [
                 Container(
                   padding: EdgeInsets.only(left: 20),
-                  height: 50,
+                  height: 90,
                   width: MediaQuery.of(context).size.width * 0.7,
-                  child: TextFormField(
+                  child: TextField(
                     onChanged: (value) {
                       setState(() {
                         searchQuery = value;
@@ -61,23 +61,22 @@ class _BookListScreenState extends State<BookListScreen> {
             ),
           ),
           (books.search_book(searchQuery).length > 0)
-              ? Expanded(
-                  child: GridView.builder(
-                    padding: EdgeInsets.all(8),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 300,
-                        childAspectRatio: 3 / 5,
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20),
-                    itemCount: books.booklistgetter.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      // final book = books[index];
-                      return bookitem(context, books, index);
-                    },
-                  ),
-                )
-              : Center(child: Text("No Books Found")),
+              ? GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.all(8),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 300,
+                    childAspectRatio: 3 / 5.5,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20),
+                itemCount: books.booklistgetter.length,
+                itemBuilder: (BuildContext context, int index) {
+                  // final book = books[index];
+                  return bookitem(context, books, index);
+                },
+              )
+              : Center(child: Text("No Books Found!!")),
         ],
       ),
     );

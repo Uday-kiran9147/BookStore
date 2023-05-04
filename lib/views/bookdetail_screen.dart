@@ -55,23 +55,28 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                 children: [
                   SizedBox(height: 16.0),
                   Center(
-                    child: Container(
-                      height: 300.0,
-                      decoration: BoxDecoration(
-                        // borderRadius: BorderRadius.circular(10.0),
-                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black54,
-                            offset: Offset(5, 3.0),
-                            blurRadius: 15.0,
-                          ),
-                        ],
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
                       ),
+                      borderOnForeground: true,
+                      elevation: 5,
+                      // height: 300.0,
+                      // decoration: BoxDecoration(
+                      //   // borderRadius: BorderRadius.circular(10.0),
+                      //   borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      //   boxShadow: [
+                      //     BoxShadow(
+                      //       color: Colors.black54,
+                      //       offset: Offset(5, 3.0),
+                      //       blurRadius: 15.0,
+                      //     ),
+                      //   ],
+                      // ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
                         child: Image.network(
-                          fit:BoxFit.fill,
+                          fit: BoxFit.fill,
                           selectedbook.coverImageUrl.toString(),
                           height: 200.0,
                           // width: double.infinity,

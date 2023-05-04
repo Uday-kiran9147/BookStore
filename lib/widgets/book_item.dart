@@ -16,16 +16,17 @@ InkWell bookitem(BuildContext context, BookProvider books, int index) {
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
+        child: Card(
+          elevation: 5,
           // height: 10,
-          decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
-            boxShadow: [BoxShadow(color: Color.fromARGB(255, 55, 51, 51), blurRadius: 3)],
-            color: Colors.grey.shade50,
-            borderRadius:
-                // BorderRadius.all(Radius.circular(10))
-                BorderRadius.circular(3),
-          ),
+          // decoration: BoxDecoration(
+          //   border: Border.all(width: 1, color: Colors.grey),
+          //   boxShadow: [BoxShadow(color: Color.fromARGB(255, 55, 51, 51), blurRadius: 3)],
+          //   color: Colors.grey.shade50,
+          //   borderRadius:
+          //       // BorderRadius.all(Radius.circular(10))
+          //       BorderRadius.circular(3),
+          // ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,14 +43,17 @@ InkWell bookitem(BuildContext context, BookProvider books, int index) {
                   ),
                 ),
               ),
-              Text(
-                books.booklistgetter[index].title.toString(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.sansita(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 255, 54, 64)),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  books.booklistgetter[index].title.toString(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.sansita(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 255, 54, 64)),
+                ),
               ),
               Text(
                 'Author name',
@@ -60,14 +64,17 @@ InkWell bookitem(BuildContext context, BookProvider books, int index) {
                     // fontSize: 20,
                     color: Colors.grey),
               ),
-              Text(
-                books.booklistgetter[index].availableFormat.toString(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 211, 105, 111)),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  books.booklistgetter[index].availableFormat.toString(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 211, 105, 111)),
+                ),
               ),
             ],
           ),
