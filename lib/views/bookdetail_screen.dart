@@ -60,7 +60,6 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                       decoration: BoxDecoration(
                         // borderRadius: BorderRadius.circular(10.0),
                         borderRadius: BorderRadius.all(Radius.circular(50.0)),
-
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black54,
@@ -70,8 +69,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                         ],
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
                         child: Image.network(
+                          fit:BoxFit.fill,
                           selectedbook.coverImageUrl.toString(),
                           height: 200.0,
                           // width: double.infinity,
@@ -163,7 +163,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                             if (_guests >= 5) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    backgroundColor: Colors.purpleAccent,
+                                      backgroundColor: Colors.purpleAccent,
                                       behavior: SnackBarBehavior.floating,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
