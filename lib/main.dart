@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
         home: SafeArea(child: BookListScreen()),
         routes: {
           BookDetailsScreen.routeName: (context) => BookDetailsScreen(),
-          CartScreen.routeName: (context) => CartScreen(),
+          // CartScreen.routeName: (context) => CartScreen(),
         },
       ),
     );

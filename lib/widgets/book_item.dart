@@ -1,5 +1,5 @@
 
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../provider/BookProvider.dart';
@@ -28,11 +28,10 @@ InkWell bookitem(BuildContext context, BookProvider books, int index) {
           //       BorderRadius.circular(3),
           // ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.all( 10),
+              Container(                padding: EdgeInsets.all( 10),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   child: Image.network(
@@ -65,7 +64,7 @@ InkWell bookitem(BuildContext context, BookProvider books, int index) {
                     color: Colors.grey),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: Text(
                   books.booklistgetter[index].availableFormat.toString(),
                   maxLines: 1,

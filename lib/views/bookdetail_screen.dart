@@ -12,7 +12,7 @@ class BookDetailsScreen extends StatefulWidget {
 }
 
 class _BookDetailsScreenState extends State<BookDetailsScreen> {
-  int _guests = 0;
+  int _quantity = 0;
   @override
   Widget build(BuildContext context) {
     final booktitle = ModalRoute.of(context)!.settings.arguments;
@@ -38,9 +38,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                 ),
               ),
               InkWell(
-                onTap: () async {
-                  Navigator.pushNamed(context, CartScreen.routeName);
-                },
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen())),
                 child: Padding(
                   padding: const EdgeInsets.only(right: 20),
                   child: Image.asset('assets/Shopping/bag.png'),
@@ -134,7 +133,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                   // bookstate.cartlist.clear();
 
                   bookstate.addtoCart(selectedbook);
-                  await bookstate.storeCartList(bookstate.cartlist);
+                  await bookstate.storeCartList(bookstate.cartListOriginal);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,22 +149,22 @@ class _BookDetailsScreenState extends State<BookDetailsScreen> {
                           icon: Icon(Icons.remove),
                           onPressed: () {
                             setState(() {
-                              if (_guests > 0) {
-                                _guests--;
+                              if (_quantity > 0) {
+                                _quantity--;
                               }
                             });
                           },
                         ),
-                        Text('$_guests'),
+                        Text('$_quantity'),
                         IconButton(
                           icon: Icon(Icons.add),
                           onPressed: () {
                             setState(() {
-                              if (_guests < 5) {
-                                _guests++;
+                              if (_quantity < 5) {
+                                _quantity++;
                               }
                             });
-                            if (_guests >= 5) {
+                            if (_quantity >= 5) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                       backgroundColor: Colors.purpleAccent,

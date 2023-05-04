@@ -26,6 +26,11 @@ class _BookListScreenState extends State<BookListScreen> {
   Widget build(BuildContext context) {
     final books = Provider.of<BookProvider>(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red.shade400,
+        title: Text("PICKWICK BOOKS"),
+        centerTitle: true,
+      ),
       body: ListView(
         children: [
           Container(
@@ -34,7 +39,7 @@ class _BookListScreenState extends State<BookListScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: 20,top: 20),
+                  padding: EdgeInsets.only(left: 20, top: 20),
                   height: 90,
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
@@ -50,8 +55,8 @@ class _BookListScreenState extends State<BookListScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () =>
-                      Navigator.pushNamed(context, CartScreen.routeName),
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CartScreen())),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: Image.asset('assets/Shopping/bag.png'),
@@ -62,24 +67,23 @@ class _BookListScreenState extends State<BookListScreen> {
           ),
           (books.search_book(searchQuery).length > 0)
               ? GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.all(8),
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 300,
-                    childAspectRatio: 3 / 5.5,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20),
-                itemCount: books.booklistgetter.length,
-                itemBuilder: (BuildContext context, int index) {
-                  // final book = books[index];
-                  return bookitem(context, books, index);
-                },
-              )
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(8),
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 300,
+                      childAspectRatio: 3 / 5.5,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20),
+                  itemCount: books.booklistgetter.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    // final book = books[index];
+                    return bookitem(context, books, index);
+                  },
+                )
               : Center(child: Text("No Books Found!!")),
         ],
       ),
     );
   }
-
 }

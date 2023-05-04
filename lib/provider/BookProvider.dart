@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BookProvider with ChangeNotifier {
-  
   void removefromCart(int index) {
-    cartlist.removeAt(index);
+    cartListOriginal.removeAt(index);
     notifyListeners();
   }
 
@@ -30,7 +29,7 @@ class BookProvider with ChangeNotifier {
   }
 
   Future<List<BookModel>> getCartList() async {
-    cartlist.clear();
+    cartListOriginal.clear();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final cartListJson = prefs.getString('cartlist');
     if (cartListJson == null) {
@@ -40,13 +39,13 @@ class BookProvider with ChangeNotifier {
     // print(cartListDecoded.toString());
     List<BookModel> cart =
         cartListDecoded.map((e) => BookModel.fromJson(e)).toList();
-    cartlist.addAll(cart);
+    cartListOriginal.addAll(cart);
     return cart;
   }
 
   final List<BookModel> booklist = [];
   void addtoCart(BookModel book) {
-    cartlist.add(book);
+    cartListOriginal.add(book);
     notifyListeners();
   }
 
@@ -64,7 +63,12 @@ class BookProvider with ChangeNotifier {
     booklist.addAll(parseddata);
   }
 
-  List<BookModel> cartlist = [];
-  List<BookModel> get cartlistgetter => [...cartlist];
+  void clearCart() async {
+    cartListOriginal.clear();
+    notifyListeners();
+  }
+
+  List<BookModel> cartListOriginal = [];
+  // List<BookModel> get cartlistgetter => [...cartListOriginal];
   List<BookModel> get booklistgetter => [...booklist];
 }

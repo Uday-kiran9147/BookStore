@@ -1,12 +1,18 @@
-import 'package:bookstore/models/bookmodel.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'package:bookstore/models/bookmodel.dart';
+
 import '../provider/BookProvider.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+  final int quantity = 1;
+  // const CartScreen({
+  //   Key? key,
+  //   required this.quantity,
+  // }) : super(key: key);
   static const routeName = '/cart-screen';
 
   @override
@@ -25,7 +31,7 @@ class _CartScreenState extends State<CartScreen> {
     if (isinit) {
       setState(() {
         isloading = true;
-        total = calculateTotalPrice(bookstate.cartlist);
+        total = calculateTotalPrice(bookstate.cartListOriginal);
       });
 
       bookstate.getCartList().then((_) {
@@ -47,9 +53,11 @@ class _CartScreenState extends State<CartScreen> {
   double calculateTotalPrice(List<BookModel> items) {
     double totalPrice = 0;
     for (var i = 0; i < items.length; i++) {
+      // var selectedP=  items.contains(items[i]);
+
       totalPrice += parseDouble(items[i].priceInDollar.toString());
     }
-    print(totalPrice);
+    // print(totalPrice);
     return totalPrice;
   }
 
@@ -88,12 +96,13 @@ class _CartScreenState extends State<CartScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black)),
                   TextSpan(
-                      text: '(${bookstate.cartlistgetter.length})',
+                      text:
+                          '(${bookstate.cartListOriginal.length * widget.quantity})',
                       style: TextStyle(fontSize: 30 / 2, color: Colors.grey)),
                 ])),
               ),
               Expanded(
-                  child: bookstate.cartlistgetter.isEmpty
+                  child: bookstate.cartListOriginal.isEmpty
                       ? Center(
                           child: Text("Your Bag is Empty",
                               style: TextStyle(
@@ -102,7 +111,7 @@ class _CartScreenState extends State<CartScreen> {
                                   color: Colors.black)),
                         )
                       : ListView.builder(
-                          itemCount: bookstate.cartlistgetter.length,
+                          itemCount: bookstate.cartListOriginal.length,
                           itemBuilder: (context, index) {
                             return Card(
                               child: Column(
@@ -114,38 +123,38 @@ class _CartScreenState extends State<CartScreen> {
                                       child: Image.network(
                                           fit: BoxFit.cover,
                                           height: 200,
-                                          bookstate.cartlistgetter[index]
+                                          bookstate.cartListOriginal[index]
                                               .coverImageUrl
                                               .toString()),
                                     ),
                                     title: Text(
-                                      bookstate.cartlistgetter[index].title
+                                      bookstate.cartListOriginal[index].title
                                           .toString(),
                                       maxLines: 2,
                                     ),
                                     subtitle: Text(
-                                      '\$${bookstate.cartlistgetter[index].priceInDollar}',
+                                      '\$${bookstate.cartListOriginal[index].priceInDollar}',
                                       style: GoogleFonts.poppins(
                                           fontSize: 22,
                                           color: Colors.red.shade400),
                                     ),
                                     trailing: Text(
-                                        '\$${bookstate.cartlistgetter[index].priceInDollar}'),
+                                        '\$${bookstate.cartListOriginal[index].priceInDollar}'),
                                   ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text('Qty'),
+                                      Text('Qty ${widget.quantity}'),
                                       IconButton(
                                         onPressed: () {
                                           bookstate.removefromCart(index);
                                           setState(() {
                                             total = calculateTotalPrice(
-                                                bookstate.cartlist);
+                                                bookstate.cartListOriginal);
                                           });
                                           bookstate.storeCartList(
-                                              bookstate.cartlist);
+                                              bookstate.cartListOriginal);
                                         },
                                         icon: Icon(Icons.delete),
                                       )
@@ -163,7 +172,7 @@ class _CartScreenState extends State<CartScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "Subtotal: ${total.toStringAsFixed(2)}",
+            "Subtotal: ${(total * widget.quantity).toStringAsFixed(2)}",
             style: GoogleFonts.poppins(
               fontSize: 22,
             ),
@@ -176,11 +185,27 @@ class _CartScreenState extends State<CartScreen> {
                   borderRadius: BorderRadius.circular(30)),
               height: 70,
               child: Center(
-                  child: Text('Proceed to Checkout',
-                      style: GoogleFonts.poppins(
-                        fontSize: 25,
-                        color: Colors.white,
-                      ))),
+                  child: InkWell(
+                onTap: () {
+                  if (bookstate.cartListOriginal.isNotEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        backgroundColor: Colors.green,
+                        content: Text("Your Order Confirmed...")));
+                  }
+                  setState(() {
+                    bookstate.cartListOriginal.clear();
+                    bookstate.storeCartList(bookstate.cartListOriginal);
+                  });
+                },
+                child: Text('Proceed to Checkout',
+                    style: GoogleFonts.poppins(
+                      fontSize: 25,
+                      color: Colors.white,
+                    )),
+              )),
             ),
           ),
         ],
