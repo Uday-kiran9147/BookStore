@@ -1,5 +1,4 @@
 import 'package:bookstore/provider/BookProvider.dart';
-import 'package:bookstore/views/cart_screen.dart';
 import 'package:bookstore/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

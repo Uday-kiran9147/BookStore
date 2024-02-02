@@ -55,7 +55,7 @@ InkWell bookitem(BuildContext context, BookProvider books, int index) {
                 ),
               ),
               Text(
-                'Author name',
+                'Author',
                 // "\$${books.booklistgetter[index].priceInDollar}",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

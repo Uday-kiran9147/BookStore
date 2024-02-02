@@ -1,6 +1,4 @@
-import 'package:bookstore/views/bookdetail_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/BookProvider.dart';
@@ -26,10 +24,10 @@ class _BookListScreenState extends State<BookListScreen> {
   Widget build(BuildContext context) {
     final books = Provider.of<BookProvider>(context);
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(elevation: 5,actions: [SizedBox(width: 40,child: Icon(Icons.search)),SizedBox(width: 40,child: Icon(Icons.notification_add))],
         backgroundColor: Colors.red.shade400,
         title: Text("PICKWICK BOOKS"),
-        centerTitle: true,
+        // centerTitle: true,
       ),
       body: ListView(
         children: [
@@ -49,8 +47,9 @@ class _BookListScreenState extends State<BookListScreen> {
                       });
                     },
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                       hintText: 'Search',
+                      fillColor: Colors.grey.shade300,
                     ),
                   ),
                 ),
@@ -68,13 +67,13 @@ class _BookListScreenState extends State<BookListScreen> {
           (books.search_book(searchQuery).length > 0)
               ? GridView.builder(
                   physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.symmetric(horizontal: 8),
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 300,
-                      childAspectRatio: 3 / 5.5,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20),
+                      childAspectRatio: 3/ 5,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10),
                   itemCount: books.booklistgetter.length,
                   itemBuilder: (BuildContext context, int index) {
                     // final book = books[index];
